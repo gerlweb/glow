@@ -68,7 +68,7 @@ $(function () {
                 console.log("preis: "+preis.toFixed(2));
                 console.log("gesamt: "+ amount * preis.toFixed(2));
                 */
-                $("#detailsMain .price").text((amount * preis.toFixed(2)).toLocaleString());
+                $("#detailsMain .price").text((amount * preis).toFixed(2).toLocaleString());
                 $("#detailsMain .unitprice > span").text( preis.toFixed(2).toLocaleString() );
                 $("#detailsMain .unitprice").show();
 
@@ -184,15 +184,67 @@ $(function () {
                     }
                 }
             },
-            c_mac: {
+            password_old: {
+                validators: {
+                    required: {
+                        message: 'Bitte geben Sie Ihr altes Passwort ein!'
+                    },
+                    notEmpty: {
+                        message: 'Bitte geben Sie Ihr altes Passwort ein!'
+                    }
+                }
+            },
+            password_new: {
+                validators: {
+                    required: {
+                        message: 'Bitte geben Sie ein neues Passwort ein!'
+                    },
+                    notEmpty: {
+                        message: 'Bitte geben Sie ein neues Passwort ein!'
+                    },
+                    regexp: {
+                        regexp: /^(?=.*[a-zA-Z])(?=.*\d)$/i,
+                        message: 'Das neue Passwort muss zumindest aus Buchstaben und Ziffern bestehen!'
+                    },
+                    stringLength: {
+                        min: 6,
+                        message: 'Das Passwort muss mindestens 6 Zeichen lang sein!'
+                    }
+                }
+            },
+            password_new_confirm: {
+                validators: {
+                    required: {
+                        message: 'Bitte geben Sie das neue Passwort nochmal ein!'
+                    },
+                    notEmpty: {
+                        message: 'Bitte geben Sie das neue Passwort nochmal ein!'
+                    },
+                    identical: {
+                        field: 'password_new',
+                        message: 'Die Passwörter müssen übereinstimmen!'
+                    }
+                }
+            },
+            c_text: {
                 validators: {
                     identical: {
+                        field: 'c_mac',
+                        message: 'Ihre Eingabe entspricht nicht dem Prüfcode.'
+                    }
+                }
+            },
+            c_mac: {
+                validators: {
+                    notEmpty: {
+                        message: 'Bitte geben Sie den Prüfcode ein.'
+                    },
+                    identical: {
                         field: 'c_text',
-                        message: 'Ihre Eingabe entspricht nicht dem Prüfcode'
+                        message: 'Ihre Eingabe entspricht nicht dem Prüfcode.'
                     }
                 }
             }
-
         }
     });
 });
